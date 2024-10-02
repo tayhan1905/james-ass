@@ -2,3 +2,4 @@ dash
 plotly
 flask
 gunicorn
+pandas
