@@ -21,7 +21,8 @@ import pandas as pd
 import dash_bootstrap_components as dbc
 import flask as Flask
 
-df = pd.read_csv('IIR_TAR_SOURCE.csv')
+web_link = "https://drive.google.com/uc?export=download&id=1cwN3B9hWxyYleov2LDNmSPWz0nih4B47"
+df = pd.read_csv(web_link)
 
 # Remove rows where the CAP_UOM is not 'BBL/d'
 df_filtered = df[df["CAP_UOM"] == "BBL/d"]
@@ -116,7 +117,7 @@ def what_you_want(filter, df_filtered):
     df_aggregated["Month"] = df_aggregated.index.month
 
     return df_aggregated
-
+# print(df_filtered.select_dtypes(include=['object']).columns)
 # flask_server = Flask(__name__)
 
 # Initialize Dash app
@@ -217,14 +218,14 @@ def update_chart_and_table(filter_column, selected_values, start_date, end_date)
     # Concatenate all DataFrames to display in a single table
     if len(aggregated_list) > 0:
         df_final = pd.concat(aggregated_list, axis = 1)
-        display(df_final)
-        df_final.drop(columns = ["Month", "Year", "Date"], inplace = True)
+        # print(df_final)
+        df_final.drop(columns = ["Month", "Year"], inplace = True)
         df_final.index = df_final.index.strftime('%Y-%m')
         df_final = df_final.T
         df_final[""] = df_final.index
         df_final = df_final[[""] + [c for c in df_final if c != ""]]
         df_final.fillna(0, inplace = True)
-        print(df_final.index)
+        # print(df_final.index)
         # df_final = df_final.pivot_table(index=filter_column, columns='Month', values='CAP_OFFLINE', aggfunc='sum').fillna(0)
     else:
         df_final = pd.DataFrame()
@@ -242,4 +243,4 @@ def update_chart_and_table(filter_column, selected_values, start_date, end_date)
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True, host='127.0.0.1', port=8000)
+    app.run_server(debug=True, host='127.0.0.1', port=8070)
