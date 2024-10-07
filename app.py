@@ -20,6 +20,7 @@ import plotly.express as px
 import pandas as pd
 import dash_bootstrap_components as dbc
 import flask as Flask
+import calendar
 
 web_link = "https://drive.google.com/uc?export=download&id=1cwN3B9hWxyYleov2LDNmSPWz0nih4B47"
 df = pd.read_csv(web_link)
@@ -43,9 +44,6 @@ end = df_filtered["TA_END"].max()
 date_range = pd.date_range(start = start, end = end, freq = "MS").tolist()
 
 date_dict = {date: 0 for date in date_range}
-
-
-import calendar
 
 def what_you_want(filter, df_filtered):
     start = df_filtered["TA_START"].min() - pd.DateOffset(months = 1)
@@ -242,4 +240,4 @@ def update_chart_and_table(filter_column, selected_values, start_date, end_date)
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True, host='127.0.0.1', port=8070)
+    app.run_server(debug=True)
