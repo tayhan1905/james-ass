@@ -238,7 +238,6 @@ def update_chart_and_table(filter_column, selected_values, start_date, end_date)
         style_cell={'textAlign': 'left'},
         page_size=10  # Set the number of rows to display per page
     )
-
     return graph_components, table
 
 # Run the app
